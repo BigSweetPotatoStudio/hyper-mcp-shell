@@ -1,4 +1,5 @@
-import spawn from "cross-spawn";
+// import spawn from "cross-spawn";
+import { spawn } from "child_process";
 import iconv from "iconv-lite";
 
 import { execSync } from "child_process";
@@ -69,11 +70,9 @@ function getSystemEncoding() {
   }
 }
 
-const spawnWithOutput = (command, args, options) => {
+const spawnWithOutput = (...args) => {
   return new Promise((resolve, reject) => {
-    const proc = spawn(command, args, {
-      ...options,
-    });
+    const proc = spawn(...args);
     let stdout = "";
     let stderr = "";
 
@@ -82,13 +81,13 @@ const spawnWithOutput = (command, args, options) => {
 
     proc.stdout.on("data", (data) => {
       const convertedData = iconv.decode(data, getSystemEncoding());
-      process.stdout.write(convertedData);
+      //   process.stdout.write(convertedData);
       stdout += convertedData;
     });
 
     proc.stderr.on("data", (data) => {
       const convertedData = iconv.decode(data, getSystemEncoding());
-      process.stderr.write(convertedData);
+      //   process.stderr.write(convertedData);
       stderr += convertedData.toString();
     });
 
@@ -110,8 +109,10 @@ const spawnWithOutput = (command, args, options) => {
   });
 };
 
-let res = await spawnWithOutput("go version", {
+let res = await spawnWithOutput(" echo 你好", {
   shell: true,
+}).catch((e) => {
+  return e;
 });
 console.log("-----------------------");
 console.log(res);

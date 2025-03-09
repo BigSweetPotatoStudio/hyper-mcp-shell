@@ -117,13 +117,13 @@ const spawnWithOutput = (command, args, options) => {
 
     proc.stdout.on("data", (data) => {
       const convertedData = iconv.decode(data, getSystemEncoding());
-      process.stdout.write(convertedData);
+      // process.stdout.write(convertedData);
       stdout += convertedData;
     });
 
     proc.stderr.on("data", (data) => {
       const convertedData = iconv.decode(data, getSystemEncoding());
-      process.stderr.write(convertedData);
+      // process.stderr.write(convertedData);
       stderr += convertedData.toString();
     });
 
