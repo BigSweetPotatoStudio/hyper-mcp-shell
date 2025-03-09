@@ -1,4 +1,9 @@
 {
+  "name": "hyper-mcp-shell",
+  "version": "1.0.0",
+  "description": "A shell for the ModelContextProtocol",
+  "module": "index.mjs",
+  "type": "module",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.6.1",
     "cross-spawn": "^7.0.6",
