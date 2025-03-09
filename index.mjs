@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {
   McpServer,
   ResourceTemplate,
@@ -11,6 +13,7 @@ import iconv from "iconv-lite";
 
 import { execSync } from "child_process";
 
+console.log("start hyper-mcp-shell!");
 // Create an MCP server
 const server = new McpServer({
   name: "hyper-mcp-shell",

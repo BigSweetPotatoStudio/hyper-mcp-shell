@@ -1,10 +1,10 @@
 {
   "name": "hyper-mcp-shell",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A shell for the ModelContextProtocol",
   "module": "index.mjs",
   "bin": {
-    "hyper-mcp-shell": "index.mjs"
+    "hyper-mcp-shell": "./index.mjs"
   },
   "type": "module",
   "dependencies": {
