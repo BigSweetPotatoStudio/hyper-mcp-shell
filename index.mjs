@@ -104,6 +104,17 @@ function getSystemEncoding() {
   }
 }
 
+// Check if output appears to be waiting for input
+const checkForInputPrompt = (text) => {
+  // Common patterns that indicate waiting for user input
+  const inputPatterns = [
+    /\[(y|Y)\/(n|N)\]\??(\s+)?$/i, // [y/n]? at end
+    /\((y|Y)\/(n|N)\)\??(\s+)?$/i, // (y/n)? at end
+    /\((y|Y)\/\[(n|N)\]\)\??(\s+)?$/i, // (y/[n])? at end
+  ];
+  return inputPatterns.some((pattern) => pattern.test(text));
+};
+
 const spawnWithOutput = (command, args, options) => {
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args, {
@@ -119,6 +130,16 @@ const spawnWithOutput = (command, args, options) => {
       const convertedData = iconv.decode(data, getSystemEncoding());
       // process.stdout.write(convertedData);
       stdout += convertedData;
+      fs.writeFileSync("./test.txt", JSON.stringify({ stdout, stderr }));
+      // Check if this output is likely waiting for input
+      if (checkForInputPrompt(stdout.trim())) {
+        // If waiting for input, resolve early with the current output and a flag
+        resolve({
+          stdout,
+          stderr,
+          code: 0,
+        });
+      }
     });
 
     proc.stderr.on("data", (data) => {
