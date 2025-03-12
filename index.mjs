@@ -130,7 +130,7 @@ const spawnWithOutput = (command, args, options) => {
       const convertedData = iconv.decode(data, getSystemEncoding());
       // process.stdout.write(convertedData);
       stdout += convertedData;
-      fs.writeFileSync("./test.txt", JSON.stringify({ stdout, stderr }));
+      // fs.writeFileSync("./test.txt", JSON.stringify({ stdout, stderr }));
       // Check if this output is likely waiting for input
       if (checkForInputPrompt(stdout.trim())) {
         // If waiting for input, resolve early with the current output and a flag
