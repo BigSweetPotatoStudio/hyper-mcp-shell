@@ -135,7 +135,7 @@ const spawnWithOutput = (command, args, options) => {
       if (checkForInputPrompt(stdout.trim())) {
         // If waiting for input, resolve early with the current output and a flag
         resolve({
-          stdout,
+          stdout: `You should add the parameter (-y) to confirm the execution\n${stdout}`,
           stderr,
           code: 0,
         });
